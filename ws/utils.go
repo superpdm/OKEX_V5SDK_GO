@@ -2,10 +2,10 @@ package ws
 
 import (
 	"errors"
+	. "github.com/superpdm/OKEX_V5SDK_GO/ws/wImpl"
+	. "github.com/superpdm/OKEX_V5SDK_GO/ws/wInterface"
 	"log"
 	"runtime/debug"
-	. "v5sdk_go/ws/wImpl"
-	. "v5sdk_go/ws/wInterface"
 )
 
 // 判断返回结果成功失败

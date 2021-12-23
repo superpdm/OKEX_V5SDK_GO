@@ -3,10 +3,10 @@ package main
 import (
 	"context"
 	"fmt"
+	. "github.com/superpdm/OKEX_V5SDK_GO/rest"
+	. "github.com/superpdm/OKEX_V5SDK_GO/ws"
 	"log"
 	"time"
-	. "v5sdk_go/rest"
-	. "v5sdk_go/ws"
 )
 
 /*

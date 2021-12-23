@@ -2,9 +2,9 @@ package ws
 
 import (
 	"fmt"
+	. "github.com/superpdm/OKEX_V5SDK_GO/ws/wImpl"
 	"testing"
 	"time"
-	. "v5sdk_go/ws/wImpl"
 )
 
 func PrintDetail(d *ProcessDetail) {

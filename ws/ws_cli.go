@@ -5,14 +5,14 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
+	. "github.com/superpdm/OKEX_V5SDK_GO/config"
+	. "github.com/superpdm/OKEX_V5SDK_GO/utils"
+	. "github.com/superpdm/OKEX_V5SDK_GO/ws/wImpl"
 	"log"
 	"regexp"
 	"runtime/debug"
 	"sync"
 	"time"
-	. "v5sdk_go/config"
-	. "v5sdk_go/utils"
-	. "v5sdk_go/ws/wImpl"
 
 	"github.com/gorilla/websocket"
 )
@@ -660,7 +660,7 @@ func (a *WsClient) Stop() error {
 	}
 
 	a.isStarted = false
-	
+
 	if a.conn != nil {
 		a.conn.Close()
 	}

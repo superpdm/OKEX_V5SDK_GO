@@ -6,11 +6,11 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
+	. "github.com/superpdm/OKEX_V5SDK_GO/utils"
 	"io/ioutil"
 	"net/http"
 	"strings"
 	"time"
-	. "v5sdk_go/utils"
 )
 
 type RESTAPI struct {

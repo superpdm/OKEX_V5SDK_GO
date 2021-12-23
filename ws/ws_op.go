@@ -3,14 +3,14 @@ package ws
 import (
 	"context"
 	"errors"
+	. "github.com/superpdm/OKEX_V5SDK_GO/config"
+	"github.com/superpdm/OKEX_V5SDK_GO/rest"
+	. "github.com/superpdm/OKEX_V5SDK_GO/utils"
+	. "github.com/superpdm/OKEX_V5SDK_GO/ws/wImpl"
+	. "github.com/superpdm/OKEX_V5SDK_GO/ws/wInterface"
 	"log"
 	"sync"
 	"time"
-	. "v5sdk_go/config"
-	"v5sdk_go/rest"
-	. "v5sdk_go/utils"
-	. "v5sdk_go/ws/wImpl"
-	. "v5sdk_go/ws/wInterface"
 )
 
 /*

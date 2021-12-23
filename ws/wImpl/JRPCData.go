@@ -5,7 +5,7 @@ package wImpl
 
 import (
 	"encoding/json"
-	. "v5sdk_go/utils"
+	. "github.com/superpdm/OKEX_V5SDK_GO/utils"
 )
 
 // jrpc请求结构体
