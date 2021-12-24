@@ -4,7 +4,6 @@ import (
 	"context"
 	"encoding/json"
 	"errors"
-	"fmt"
 	. "github.com/superpdm/OKEX_V5SDK_GO/config"
 	. "github.com/superpdm/OKEX_V5SDK_GO/utils"
 	. "github.com/superpdm/OKEX_V5SDK_GO/ws/wImpl"
@@ -65,9 +64,9 @@ type Msg struct {
 }
 
 func (this *Msg) Print() {
-	fmt.Println("【消息时间】", this.Timestamp.Format("2006-01-02 15:04:05.000"))
+	log.Println("[MessageTime]", this.Timestamp.Format("2006-01-02 15:04:05.000"))
 	str, _ := json.Marshal(this.Info)
-	fmt.Println("【消息内容】", string(str))
+	log.Println("[MessageContent]", string(str))
 }
 
 /*
@@ -128,7 +127,7 @@ func (a *WsClient) updateDepthDataList(key string, dd DepthDetail) error {
 	a.DepthDataLock.Lock()
 	defer a.DepthDataLock.Unlock()
 	if _, ok := a.DepthDataList[key]; !ok {
-		return errors.New("更新失败！未发现记录" + key)
+		return errors.New("update failed, no record" + key)
 	}
 
 	a.DepthDataList[key] = dd
@@ -153,7 +152,7 @@ func (a *WsClient) EnableAutoDepthMgr(b bool) error {
 	defer a.DepthDataLock.Unlock()
 
 	if len(a.DepthDataList) != 0 {
-		err := errors.New("当前有深度数据处于订阅中")
+		err := errors.New("depth data already subscribed")
 		return err
 	}
 
@@ -197,7 +196,7 @@ func (a *WsClient) Start() error {
 	a.lock.RLock()
 	if a.isStarted {
 		a.lock.RUnlock()
-		fmt.Println("ws已经启动")
+		log.Println("ws already started")
 		return nil
 	} else {
 		a.lock.RUnlock()
@@ -222,7 +221,7 @@ func (a *WsClient) Start() error {
 		}(ctx)
 		select {
 		case <-ctx.Done():
-			err := errors.New("连接超时退出！")
+			err := errors.New("connection timeout")
 			return err
 		case <-done:
 
@@ -231,7 +230,7 @@ func (a *WsClient) Start() error {
 		go a.receive()
 		go a.work()
 		a.isStarted = true
-		log.Println("客户端已启动!", a.WsEndPoint)
+		log.Println("client already started", a.WsEndPoint)
 		return nil
 	}
 }
@@ -262,7 +261,7 @@ func (a *WsClient) work() {
 			go func() {
 				_, _, err := a.Ping(1000)
 				if err != nil {
-					fmt.Println("心跳检测失败！", err)
+					log.Println("heart beat failed", err)
 					a.Stop()
 					return
 				}
@@ -279,7 +278,7 @@ func (a *WsClient) work() {
 			if a.onMessageHook != nil {
 				err := a.onMessageHook(data)
 				if err != nil {
-					log.Println("执行onMessageHook函数错误！", err)
+					log.Println("onMessageHook failed", err)
 				}
 			}
 		case errMsg, ok := <-a.errCh: //错误处理
@@ -289,7 +288,7 @@ func (a *WsClient) work() {
 			if a.OnErrorHook != nil {
 				err := a.OnErrorHook(errMsg)
 				if err != nil {
-					log.Println("执行OnErrorHook函数错误！", err)
+					log.Println("OnErrorHook failed", err)
 				}
 			}
 		case req, ok := <-a.sendCh: //从发送队列中取出数据发送到服务端
@@ -299,10 +298,10 @@ func (a *WsClient) work() {
 			//log.Println("接收到来自req的消息:", req)
 			err := a.conn.WriteMessage(websocket.TextMessage, []byte(req))
 			if err != nil {
-				log.Printf("发送请求失败: %s\n", err)
+				log.Printf("send request failed: %s\n", err)
 				return
 			}
-			log.Printf("[发送请求] %v\n", req)
+			log.Printf("[SendRequest] %v\n", req)
 		}
 	}
 
@@ -338,12 +337,12 @@ func (a *WsClient) receive() {
 		case websocket.BinaryMessage:
 			txtMsg, err = GzipDecode(message)
 			if err != nil {
-				log.Println("解压失败！")
+				log.Println("Decode failed")
 				continue
 			}
 		}
 
-		log.Println("[收到消息]", string(txtMsg))
+		log.Println("[Message]", string(txtMsg))
 
 		//发送结果到默认消息处理通道
 
@@ -354,7 +353,7 @@ func (a *WsClient) receive() {
 
 		evt, data, err := a.parseMessage(txtMsg)
 		if err != nil {
-			log.Println("解析消息失败！", err)
+			log.Println("parse message failed", err)
 			continue
 		}
 
@@ -389,7 +388,7 @@ func (a *WsClient) receive() {
 							if fn != nil {
 								err = fn(msg.Timestamp, msg.Info.(MsgData))
 								if err != nil {
-									log.Println("订阅数据回调函数执行失败！", err)
+									log.Println("data callback failed", err)
 								}
 								//log.Println("函数执行成功！", err)
 							}
@@ -408,7 +407,7 @@ func (a *WsClient) receive() {
 							if fn != nil {
 								err = fn(msg.Timestamp, msg.Info.(DepthData))
 								if err != nil {
-									log.Println("深度回调函数执行失败！", err)
+									log.Println("depth callback failed", err)
 								}
 
 							}
@@ -452,7 +451,7 @@ func (a *WsClient) MergeDepth(depData DepthData) (err error) {
 
 	key, err := json.Marshal(depData.Arg)
 	if err != nil {
-		err = errors.New("数据错误")
+		err = errors.New("data error")
 		return
 	}
 
@@ -466,7 +465,7 @@ func (a *WsClient) MergeDepth(depData DepthData) (err error) {
 
 		_, err = depData.CheckSum(nil)
 		if err != nil {
-			log.Println("校验失败", err)
+			log.Println("checksum failed", err)
 			return
 		}
 
@@ -478,15 +477,15 @@ func (a *WsClient) MergeDepth(depData DepthData) (err error) {
 		a.DepthDataLock.RLock()
 		oldSnapshot, ok := a.DepthDataList[string(key)]
 		if !ok {
-			log.Println("深度数据错误，全量数据未发现！")
-			err = errors.New("数据错误")
+			log.Println("depth data error")
+			err = errors.New("depth data error")
 			return
 		}
 		a.DepthDataLock.RUnlock()
 		newSnapshot, err = depData.CheckSum(&oldSnapshot)
 		if err != nil {
-			log.Println("深度校验失败", err)
-			err = errors.New("校验失败")
+			log.Println("depth checksum failed", err)
+			err = errors.New("checksum failed")
 			return
 		}
 
@@ -535,7 +534,7 @@ func GetInfoFromErrCode(data ErrData) Event {
 func GetInfoFromErrMsg(raw string) (channel string) {
 	reg := regexp.MustCompile(`channel:(.*?),`)
 	if reg == nil {
-		fmt.Println("MustCompile err")
+		log.Println("MustCompile err")
 		return
 	}
 	//提取关键信息
@@ -673,7 +672,7 @@ func (a *WsClient) Stop() error {
 		close(ch)
 	}
 
-	log.Println("ws客户端退出!")
+	log.Println("ws client exit!")
 	return nil
 }
 

@@ -1,7 +1,7 @@
 package utils
 
 import (
-	"fmt"
+	"log"
 	"testing"
 )
 
@@ -12,6 +12,6 @@ func TestHmacSha256Base64Signer(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	fmt.Println(res)
+	log.Println(res)
 	t.Log(res)
 }

@@ -34,7 +34,7 @@ func (a *WsClient) Ping(timeOut ...int) (res bool, detail *ProcessDetail, err er
 	msg, err := a.process(ctx, EVENT_PING, nil)
 	if err != nil {
 		res = false
-		log.Println("处理请求失败!", err)
+		log.Println("process request failed", err)
 		return
 	}
 	detail.Data = msg
@@ -88,10 +88,10 @@ func (a *WsClient) Login(apiKey, secKey, passPhrase string, timeOut ...int) (res
 	timestamp := EpochTime()
 
 	preHash := PreHashString(timestamp, rest.GET, "/users/self/verify", "")
-	//fmt.Println("preHash:", preHash)
+	//log.Println("preHash:", preHash)
 	var sign string
 	if sign, err = HmacSha256Base64Signer(preHash, secKey); err != nil {
-		log.Println("处理签名失败！", err)
+		log.Println("handle signature failed", err)
 		return
 	}
 
@@ -116,7 +116,7 @@ func (a *WsClient) Login(apiKey, secKey, passPhrase string, timeOut ...int) (res
 	msg, err := a.process(ctx, EVENT_LOGIN, req)
 	if err != nil {
 		res = false
-		log.Println("处理请求失败!", req, err)
+		log.Println("process request failed", req, err)
 		return
 	}
 	detail.Data = msg
@@ -129,9 +129,9 @@ func (a *WsClient) Login(apiKey, secKey, passPhrase string, timeOut ...int) (res
 	info, _ := msg[0].Info.(ErrData)
 
 	if info.Code == "0" && info.Event == OP_LOGIN {
-		log.Println("登录成功!")
+		log.Println("login success")
 	} else {
-		log.Println("登录失败!")
+		log.Println("login failed")
 		res = false
 		return
 	}
@@ -157,8 +157,8 @@ func (a *WsClient) waitForResult(e Event, timeOut int) (data interface{}, err er
 	//log.Println(e, "等待响应！")
 	select {
 	case <-time.After(time.Duration(timeOut) * time.Millisecond):
-		log.Println(e, "超时未响应！")
-		err = errors.New(e.String() + "超时未响应！")
+		log.Println(e, "timeout")
+		err = errors.New(e.String() + "timeout")
 		return
 	case data = <-ch:
 		//log.Println(data)
@@ -173,8 +173,8 @@ func (a *WsClient) waitForResult(e Event, timeOut int) (data interface{}, err er
 func (a *WsClient) Send(ctx context.Context, op WSReqData) (err error) {
 	select {
 	case <-ctx.Done():
-		log.Println("发生失败退出！")
-		err = errors.New("发送超时退出！")
+		log.Println("exit by failure")
+		err = errors.New("exit by failure")
 	case a.sendCh <- op.ToString():
 	}
 
@@ -195,7 +195,7 @@ func (a *WsClient) process(ctx context.Context, e Event, op WSReqData) (data []*
 		}
 	}
 	defer func() {
-		//fmt.Println("处理完成,", e.String())
+		//log.Println("处理完成,", e.String())
 		detail.UsedTime = detail.RecvTime.Sub(detail.SendTime)
 	}()
 
@@ -207,7 +207,7 @@ func (a *WsClient) process(ctx context.Context, e Event, op WSReqData) (data []*
 		//log.Println("注册", e, "事件成功")
 	} else {
 		//log.Println("事件", e, "已注册！")
-		err = errors.New("事件" + e.String() + "尚未处理完毕")
+		err = errors.New("event" + e.String() + " still handling")
 		return
 	}
 
@@ -241,8 +241,8 @@ func (a *WsClient) process(ctx context.Context, e Event, op WSReqData) (data []*
 			var item *Msg
 			select {
 			case <-ctx.Done():
-				log.Println(e, "超时未响应！")
-				err = errors.New(e.String() + "超时未响应！")
+				log.Println(e, "timeout")
+				err = errors.New(e.String() + "timeout！")
 				return
 			case item, ok = <-ch:
 				if !ok {
@@ -278,7 +278,7 @@ func (a *WsClient) process(ctx context.Context, e Event, op WSReqData) (data []*
 		detail.ReqInfo = op.ToString()
 		err = a.Send(ctx, op)
 		if err != nil {
-			log.Println("发送[", e, "]消息失败！", err)
+			log.Println("send message failed [", e, "]", err)
 			return
 		}
 		detail.SendTime = time.Now()
@@ -316,7 +316,7 @@ func (a *WsClient) Subscribe(param map[string]string, timeOut ...int) (res bool,
 
 	evtid := GetEventByParam(param)
 	if evtid == EVENT_UNKNOWN {
-		err = errors.New("非法的请求参数！")
+		err = errors.New("illegal parameter")
 		return
 	}
 
@@ -339,7 +339,7 @@ func (a *WsClient) Subscribe(param map[string]string, timeOut ...int) (res bool,
 	msg, err := a.process(ctx, evtid, req)
 	if err != nil {
 		res = false
-		log.Println("处理请求失败!", req, err)
+		log.Println("process request failed", req, err)
 		return
 	}
 	detail.Data = msg
@@ -367,7 +367,7 @@ func (a *WsClient) UnSubscribe(param map[string]string, timeOut ...int) (res boo
 
 	evtid := GetEventByParam(param)
 	if evtid == EVENT_UNKNOWN {
-		err = errors.New("非法的请求参数！")
+		err = errors.New("illegal parameter")
 		return
 	}
 
@@ -389,7 +389,7 @@ func (a *WsClient) UnSubscribe(param map[string]string, timeOut ...int) (res boo
 	msg, err := a.process(ctx, evtid, req)
 	if err != nil {
 		res = false
-		log.Println("处理请求失败!", req, err)
+		log.Println("process request failed", req, err)
 		return
 	}
 	detail.Data = msg
@@ -415,7 +415,7 @@ func (a *WsClient) Jrpc(id, op string, params []map[string]interface{}, timeOut 
 
 	evtid := GetEventId(op)
 	if evtid == EVENT_UNKNOWN {
-		err = errors.New("非法的请求参数！")
+		err = errors.New("illegal parameter")
 		return
 	}
 
@@ -434,7 +434,7 @@ func (a *WsClient) Jrpc(id, op string, params []map[string]interface{}, timeOut 
 	msg, err := a.process(ctx, evtid, req)
 	if err != nil {
 		res = false
-		log.Println("处理请求失败!", req, err)
+		log.Println("process request failed", req, err)
 		return
 	}
 	detail.Data = msg
@@ -473,7 +473,7 @@ func (a *WsClient) PubChannel(evtId Event, op string, params []map[string]string
 	msg, err = a.process(ctx, evtId, req)
 	if err != nil {
 		res = false
-		log.Println("处理请求失败!", req, err)
+		log.Println("process request failed", req, err)
 		return
 	}
 
@@ -493,7 +493,7 @@ func checkParams(evtId Event, params []map[string]string, pd Period) (res []map[
 
 	channel := evtId.GetChannel(pd)
 	if channel == "" {
-		err = errors.New("参数校验失败!未知的类型:" + evtId.String())
+		err = errors.New("checksum failed. unknown type:" + evtId.String())
 		return
 	}
 	log.Println(channel)
@@ -515,7 +515,7 @@ func checkParams(evtId Event, params []map[string]string, pd Period) (res []map[
 				tmp["channel"] = channel
 			} else {
 				if val != channel {
-					err = errors.New("参数校验失败!channel应为" + channel + val)
+					err = errors.New("checksum failed. channel should be" + channel + val)
 					return
 				}
 			}

@@ -101,7 +101,7 @@ func (a *WsClient) PubOrderBooks(op string, channel string, params []map[string]
 		return a.PubChannel(EVENT_BOOK_ORDER_BOOK50_TBT, op, params, PERIOD_NONE, timeOut...)
 
 	default:
-		err = errors.New("未知的channel")
+		err = errors.New("unknown channel")
 		return
 	}
 

@@ -19,14 +19,14 @@ OKEX go版本的v5sdk，仅供学习交流使用。
 		return
 	}
 
-	fmt.Println("Response:")
-	fmt.Println("\thttp code: ", rsp.Code)
-	fmt.Println("\t总耗时: ", rsp.TotalUsedTime)
-	fmt.Println("\t请求耗时: ", rsp.ReqUsedTime)
-	fmt.Println("\t返回消息: ", rsp.Body)
-	fmt.Println("\terrCode: ", rsp.V5Response.Code)
-	fmt.Println("\terrMsg: ", rsp.V5Response.Msg)
-	fmt.Println("\tdata: ", rsp.V5Response.Data)
+	log.Println("Response:")
+	log.Println("\thttp code: ", rsp.Code)
+	log.Println("\t总耗时: ", rsp.TotalUsedTime)
+	log.Println("\t请求耗时: ", rsp.ReqUsedTime)
+	log.Println("\t返回消息: ", rsp.Body)
+	log.Println("\terrCode: ", rsp.V5Response.Code)
+	log.Println("\terrMsg: ", rsp.V5Response.Msg)
+	log.Println("\tdata: ", rsp.V5Response.Data)
  ```
 更多示例请查看rest/rest_test.go  
 
@@ -61,9 +61,9 @@ OKEX go版本的v5sdk，仅供学习交流使用。
 	// 私有频道需要登录
 	res, _, err = r.Login(apikey, secretKey, passphrase)
 	if res {
-		fmt.Println("登录成功！")
+		log.Println("login success")
 	} else {
-		fmt.Println("登录失败！", err)
+		log.Println("login failed", err)
 		return
 	}
 
@@ -78,9 +78,9 @@ OKEX go版本的v5sdk，仅供学习交流使用。
 	res, _, err = r.PrivAccout(OP_SUBSCRIBE, args)
 	if res {
 		usedTime := time.Since(start)
-		fmt.Println("订阅成功！耗时:", usedTime.String())
+		log.Println("subscribe success", usedTime.String())
 	} else {
-		fmt.Println("订阅失败！", err)
+		log.Println("subscribe failed", err)
 	}
 
 	time.Sleep(100 * time.Second)
@@ -89,9 +89,9 @@ OKEX go版本的v5sdk，仅供学习交流使用。
 	res, _, err = r.PrivAccout(OP_UNSUBSCRIBE, args)
 	if res {
 		usedTime := time.Since(start)
-		fmt.Println("取消订阅成功！", usedTime.String())
+		log.Println("unsubscribe success", usedTime.String())
 	} else {
-		fmt.Println("取消订阅失败！", err)
+		log.Println("unsubscribe failed", err)
 	}
 ```
 更多示例请查看ws/ws_priv_channel_test.go  
@@ -131,9 +131,9 @@ OKEX go版本的v5sdk，仅供学习交流使用。
 	res, _, err := r.PubInstruemnts(OP_SUBSCRIBE, args)
 	if res {
 		usedTime := time.Since(start)
-		fmt.Println("订阅成功！", usedTime.String())
+		log.Println("subscribe success", usedTime.String())
 	} else {
-		fmt.Println("订阅失败！", err)
+		log.Println("subscribe failed", err)
 	}
 
 	time.Sleep(30 * time.Second)
@@ -144,9 +144,9 @@ OKEX go版本的v5sdk，仅供学习交流使用。
 	res, _, err = r.PubInstruemnts(OP_UNSUBSCRIBE, args)
 	if res {
 		usedTime := time.Since(start)
-		fmt.Println("取消订阅成功！", usedTime.String())
+		log.Println("unsubscribe success", usedTime.String())
 	} else {
-		fmt.Println("取消订阅失败！", err)
+		log.Println("unsubscribe failed", err)
 	}
 ```
 更多示例请查看ws/ws_pub_channel_test.go  
@@ -182,9 +182,9 @@ OKEX go版本的v5sdk，仅供学习交流使用。
 
 	res, _, err = r.Login(apikey, secretKey, passphrase)
 	if res {
-		fmt.Println("登录成功！")
+		log.Println("login success")
 	} else {
-		fmt.Println("登录失败！", err)
+		log.Println("login failed", err)
 		return
 	}
 
@@ -201,10 +201,10 @@ OKEX go版本的v5sdk，仅供学习交流使用。
 	res, _, err = r.PlaceOrder(req_id, param)
 	if res {
 		usedTime := time.Since(start)
-		fmt.Println("下单成功！", usedTime.String())
+		log.Println("place order success", usedTime.String())
 	} else {
 		usedTime := time.Since(start)
-		fmt.Println("下单失败！", usedTime.String(), err)
+		log.Println("place order failed", usedTime.String(), err)
 	}
 
 ```

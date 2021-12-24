@@ -71,62 +71,62 @@ const (
 */
 var EVENT_TABLE = [][]interface{}{
 	// 未知的消息
-	{EVENT_UNKNOWN, "未知", ""},
+	{EVENT_UNKNOWN, "unknown", ""},
 	// 错误的消息
-	{EVENT_ERROR, "错误", ""},
+	{EVENT_ERROR, "error", ""},
 	// Ping
 	{EVENT_PING, "ping", ""},
 	// 登陆
-	{EVENT_LOGIN, "登录", ""},
+	{EVENT_LOGIN, "login", ""},
 
 	/*
 		订阅公共频道
 	*/
 
-	{EVENT_BOOK_INSTRUMENTS, "产品", "instruments"},
+	{EVENT_BOOK_INSTRUMENTS, "instruments", "instruments"},
 	{EVENT_STATUS, "status", "status"},
-	{EVENT_BOOK_TICKERS, "行情", "tickers"},
-	{EVENT_BOOK_OPEN_INTEREST, "持仓总量", "open-interest"},
-	{EVENT_BOOK_KLINE, "K线", "candle"},
-	{EVENT_BOOK_TRADE, "交易", "trades"},
-	{EVENT_BOOK_ESTIMATE_PRICE, "预估交割/行权价格", "estimated-price"},
-	{EVENT_BOOK_MARK_PRICE, "标记价格", "mark-price"},
-	{EVENT_BOOK_MARK_PRICE_CANDLE_CHART, "标记价格K线", "mark-price-candle"},
-	{EVENT_BOOK_LIMIT_PRICE, "限价", "price-limit"},
-	{EVENT_BOOK_ORDER_BOOK, "400档深度", "books"},
-	{EVENT_BOOK_ORDER_BOOK5, "5档深度", "books5"},
-	{EVENT_BOOK_ORDER_BOOK_TBT, "tbt深度", "books-l2-tbt"},
-	{EVENT_BOOK_ORDER_BOOK50_TBT, "tbt50深度", "books50-l2-tbt"},
-	{EVENT_BOOK_OPTION_SUMMARY, "期权定价", "opt-summary"},
-	{EVENT_BOOK_FUND_RATE, "资金费率", "funding-rate"},
-	{EVENT_BOOK_KLINE_INDEX, "指数K线", "index-candle"},
-	{EVENT_BOOK_INDEX_TICKERS, "指数行情", "index-tickers"},
+	{EVENT_BOOK_TICKERS, "tickers", "tickers"},
+	{EVENT_BOOK_OPEN_INTEREST, "open-interest", "open-interest"},
+	{EVENT_BOOK_KLINE, "candle", "candle"},
+	{EVENT_BOOK_TRADE, "trades", "trades"},
+	{EVENT_BOOK_ESTIMATE_PRICE, "estimated-price", "estimated-price"},
+	{EVENT_BOOK_MARK_PRICE, "mark-price", "mark-price"},
+	{EVENT_BOOK_MARK_PRICE_CANDLE_CHART, "mark-price-candle", "mark-price-candle"},
+	{EVENT_BOOK_LIMIT_PRICE, "price-limit", "price-limit"},
+	{EVENT_BOOK_ORDER_BOOK, "400 depth book", "books"},
+	{EVENT_BOOK_ORDER_BOOK5, "5 depth book", "books5"},
+	{EVENT_BOOK_ORDER_BOOK_TBT, "books-l2-tbt", "books-l2-tbt"},
+	{EVENT_BOOK_ORDER_BOOK50_TBT, "books50-l2-tbt", "books50-l2-tbt"},
+	{EVENT_BOOK_OPTION_SUMMARY, "opt-summary", "opt-summary"},
+	{EVENT_BOOK_FUND_RATE, "funding-rate", "funding-rate"},
+	{EVENT_BOOK_KLINE_INDEX, "index-candle", "index-candle"},
+	{EVENT_BOOK_INDEX_TICKERS, "index-tickers", "index-tickers"},
 
 	/*
 		订阅私有频道
 	*/
-	{EVENT_BOOK_ACCOUNT, "账户", "account"},
-	{EVENT_BOOK_POSTION, "持仓", "positions"},
-	{EVENT_BOOK_ORDER, "订单", "orders"},
-	{EVENT_BOOK_ALG_ORDER, "策略委托订单", "orders-algo"},
-	{EVENT_BOOK_B_AND_P, "账户余额和持仓", "balance_and_position"},
+	{EVENT_BOOK_ACCOUNT, "account", "account"},
+	{EVENT_BOOK_POSTION, "positions", "positions"},
+	{EVENT_BOOK_ORDER, "orders", "orders"},
+	{EVENT_BOOK_ALG_ORDER, "orders-algo", "orders-algo"},
+	{EVENT_BOOK_B_AND_P, "balance_and_position", "balance_and_position"},
 
 	/*
 		JRPC
 	*/
-	{EVENT_PLACE_ORDER, "下单", "order"},
-	{EVENT_PLACE_BATCH_ORDERS, "批量下单", "batch-orders"},
-	{EVENT_CANCEL_ORDER, "撤单", "cancel-order"},
-	{EVENT_CANCEL_BATCH_ORDERS, "批量撤单", "batch-cancel-orders"},
-	{EVENT_AMEND_ORDER, "改单", "amend-order"},
-	{EVENT_AMEND_BATCH_ORDERS, "批量改单", "batch-amend-orders"},
+	{EVENT_PLACE_ORDER, "order", "order"},
+	{EVENT_PLACE_BATCH_ORDERS, "batch-orders", "batch-orders"},
+	{EVENT_CANCEL_ORDER, "cancel-order", "cancel-order"},
+	{EVENT_CANCEL_BATCH_ORDERS, "batch-cancel-orders", "batch-cancel-orders"},
+	{EVENT_AMEND_ORDER, "amend-order", "amend-order"},
+	{EVENT_AMEND_BATCH_ORDERS, "batch-amend-orders", "batch-amend-orders"},
 
 	/*
 		订阅返回数据
 		注意：推送数据channle统一为""
 	*/
-	{EVENT_BOOKED_DATA, "普通推送", ""},
-	{EVENT_DEPTH_DATA, "深度推送", ""},
+	{EVENT_BOOKED_DATA, "booked-data", ""},
+	{EVENT_DEPTH_DATA, "depth-data", ""},
 }
 
 /*
@@ -183,7 +183,7 @@ func GetEventId(raw string) Event {
 		//regexp := regexp.MustCompile(`^http://www.flysnow.org/([\d]{4})/([\d]{2})/([\d]{2})/([\w-]+).html$`)
 
 		substr := regexp.FindStringSubmatch(raw)
-		//fmt.Println(substr)
+		//log.Println(substr)
 		if len(substr) >= 2 {
 			if substr[1] == channel {
 				evt = v[0].(Event)

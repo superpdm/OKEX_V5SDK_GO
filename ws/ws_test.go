@@ -1,7 +1,6 @@
 package ws
 
 import (
-	"fmt"
 	. "github.com/superpdm/OKEX_V5SDK_GO/ws/wImpl"
 	"log"
 	"testing"
@@ -35,10 +34,10 @@ func TestWsClient_SubscribeAndUnSubscribe(t *testing.T) {
 	res, _, err = r.Subscribe(param)
 	if res {
 		usedTime := time.Since(start)
-		fmt.Println("订阅成功！", usedTime.String())
+		log.Println("subscribe success", usedTime.String())
 	} else {
-		fmt.Println("订阅失败！", err)
-		t.Fatal("订阅失败！", err)
+		log.Println("subscribe failed", err)
+		t.Fatal("subscribe failed", err)
 		//return
 	}
 
@@ -49,10 +48,10 @@ func TestWsClient_SubscribeAndUnSubscribe(t *testing.T) {
 	res, _, err = r.UnSubscribe(param)
 	if res {
 		usedTime := time.Since(start)
-		fmt.Println("取消订阅成功！", usedTime.String())
+		log.Println("unsubscribe success", usedTime.String())
 	} else {
-		fmt.Println("取消订阅失败！", err)
-		t.Fatal("取消订阅失败！", err)
+		log.Println("unsubscribe failed", err)
+		t.Fatal("unsubscribe failed", err)
 	}
 
 }
@@ -73,10 +72,10 @@ func TestWsClient_SubscribeAndUnSubscribe_priv(t *testing.T) {
 		res, data, err = r.Subscribe(v)
 		if res {
 			usedTime := time.Since(start)
-			fmt.Println("订阅成功！", usedTime.String())
+			log.Println("subscribe success", usedTime.String())
 			PrintDetail(data)
 		} else {
-			fmt.Println("订阅失败！", err)
+			log.Println("subscribe failed", err)
 			//return
 		}
 		time.Sleep(60 * time.Second)
@@ -86,9 +85,9 @@ func TestWsClient_SubscribeAndUnSubscribe_priv(t *testing.T) {
 		res, _, err = r.UnSubscribe(v)
 		if res {
 			usedTime := time.Since(start)
-			fmt.Println("取消订阅成功！", usedTime.String())
+			log.Println("unsubscribe success", usedTime.String())
 		} else {
-			fmt.Println("取消订阅失败！", err)
+			log.Println("unsubscribe failed", err)
 		}
 
 	}
@@ -209,11 +208,11 @@ func TestWsClient_Jrpc(t *testing.T) {
 	res, data, err = r.Jrpc("okexv5wsapi001", "order", args)
 	if res {
 		usedTime := time.Since(start)
-		fmt.Println("下单成功！", usedTime.String())
+		log.Println("place order success", usedTime.String())
 		PrintDetail(data)
 	} else {
 		usedTime := time.Since(start)
-		fmt.Println("下单失败！", usedTime.String(), err)
+		log.Println("place order failed", usedTime.String(), err)
 	}
 }
 
@@ -226,8 +225,8 @@ func TestAddMessageHook(t *testing.T) {
 
 	r.AddMessageHook(func(msg *Msg) error {
 		// 添加你的方法
-		fmt.Println("这是自定义MessageHook")
-		fmt.Println("当前数据是", msg)
+		log.Println("this is custom MessageHook")
+		log.Println("current data is ", msg)
 		return nil
 	})
 
@@ -248,8 +247,8 @@ func TestAddBookedDataHook(t *testing.T) {
 
 		r.AddBookMsgHook(func(ts time.Time, data MsgData) error {
 			// 添加你的方法
-			fmt.Println("这是自定义AddBookMsgHook")
-			fmt.Println("当前数据是", data)
+			log.Println("this is custom AddBookMsgHook")
+			log.Println("current data is ", data)
 			return nil
 		})
 
@@ -259,10 +258,10 @@ func TestAddBookedDataHook(t *testing.T) {
 
 		res, _, err = r.Subscribe(param)
 		if res {
-			fmt.Println("订阅成功！")
+			log.Println("subscribe success")
 		} else {
-			fmt.Println("订阅失败！", err)
-			t.Fatal("订阅失败！", err)
+			log.Println("subscribe failed", err)
+			t.Fatal("subscribe failed", err)
 			//return
 		}
 
@@ -277,8 +276,8 @@ func TestAddBookedDataHook(t *testing.T) {
 
 		r.AddBookMsgHook(func(ts time.Time, data MsgData) error {
 			// 添加你的方法
-			fmt.Println("这是自定义AddBookMsgHook")
-			fmt.Println("当前数据是", data)
+			log.Println("this is custom AddBookMsgHook")
+			log.Println("current data is ", data)
 			return nil
 		})
 
@@ -288,10 +287,10 @@ func TestAddBookedDataHook(t *testing.T) {
 
 		res, _, err = r.Subscribe(param)
 		if res {
-			fmt.Println("订阅成功！")
+			log.Println("subscribe success")
 		} else {
-			fmt.Println("订阅失败！", err)
-			t.Fatal("订阅失败！", err)
+			log.Println("subscribe failed", err)
+			t.Fatal("subscribe failed", err)
 			//return
 		}
 
@@ -338,8 +337,8 @@ func TestSubscribeTBT(t *testing.T) {
 
 	// 添加你的方法
 	r.AddDepthHook(func(ts time.Time, data DepthData) error {
-		//fmt.Println("这是自定义AddBookMsgHook")
-		fmt.Println("当前数据是:", data)
+		//log.Println("this is custom AddBookMsgHook")
+		log.Println("current data is :", data)
 		return nil
 	})
 
@@ -350,10 +349,10 @@ func TestSubscribeTBT(t *testing.T) {
 
 	res, _, err = r.Subscribe(param)
 	if res {
-		fmt.Println("订阅成功！")
+		log.Println("subscribe success")
 	} else {
-		fmt.Println("订阅失败！", err)
-		t.Fatal("订阅失败！", err)
+		log.Println("subscribe failed", err)
+		t.Fatal("subscribe failed", err)
 		//return
 	}
 
@@ -375,10 +374,10 @@ func TestSubscribeBalAndPos(t *testing.T) {
 
 	res, _, err = r.Subscribe(param)
 	if res {
-		fmt.Println("订阅成功！")
+		log.Println("subscribe success")
 	} else {
-		fmt.Println("订阅失败！", err)
-		t.Fatal("订阅失败！", err)
+		log.Println("subscribe failed", err)
+		t.Fatal("subscribe failed", err)
 		//return
 	}
 

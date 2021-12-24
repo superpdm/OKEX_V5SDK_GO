@@ -1,22 +1,22 @@
 package ws
 
 import (
-	"fmt"
 	. "github.com/superpdm/OKEX_V5SDK_GO/ws/wImpl"
+	"log"
 	"testing"
 	"time"
 )
 
 func PrintDetail(d *ProcessDetail) {
-	fmt.Println("[详细信息]")
-	fmt.Println("请求地址:", d.EndPoint)
-	fmt.Println("请求内容:", d.ReqInfo)
-	fmt.Println("发送时间:", d.SendTime.Format("2006-01-02 15:04:05.000"))
-	fmt.Println("响应时间:", d.RecvTime.Format("2006-01-02 15:04:05.000"))
-	fmt.Println("耗时:", d.UsedTime.String())
-	fmt.Printf("接受到 %v 条消息:\n", len(d.Data))
+	log.Println("[Detail]")
+	log.Println("Endpoint:", d.EndPoint)
+	log.Println("ReqInfo", d.ReqInfo)
+	log.Println("Send time", d.SendTime.Format("2006-01-02 15:04:05.000"))
+	log.Println("Response time:", d.RecvTime.Format("2006-01-02 15:04:05.000"))
+	log.Println("Cost:", d.UsedTime.String())
+	log.Printf("Received %v messages\n", len(d.Data))
 	for _, v := range d.Data {
-		fmt.Printf("[%v] %v\n", v.Timestamp.Format("2006-01-02 15:04:05.000"), v.Info)
+		log.Printf("[%v] %v\n", v.Timestamp.Format("2006-01-02 15:04:05.000"), v.Info)
 	}
 }
 
@@ -76,11 +76,11 @@ func TestPlaceOrder(t *testing.T) {
 	res, data, err = r.PlaceOrder("0011", param)
 	if res {
 		usedTime := time.Since(start)
-		fmt.Println("下单成功！", usedTime.String())
+		log.Println("Place order success", usedTime.String())
 		PrintDetail(data)
 	} else {
 		usedTime := time.Since(start)
-		fmt.Println("下单失败！", usedTime.String(), err)
+		log.Println("Place order failed", usedTime.String(), err)
 	}
 
 }
@@ -113,15 +113,15 @@ func TestPlaceBatchOrder(t *testing.T) {
 	res, data, err = r.BatchPlaceOrders("001", params)
 	usedTime := time.Since(start)
 	if err != nil {
-		fmt.Println("下单失败！", err, usedTime.String())
+		log.Println("Place order failed, ", err, usedTime.String())
 		t.Fail()
 	}
 	if res {
-		fmt.Println("下单成功！", usedTime.String())
+		log.Println("place order success", usedTime.String())
 		PrintDetail(data)
 	} else {
 
-		fmt.Println("下单失败！", usedTime.String())
+		log.Println("place order failed", usedTime.String())
 		t.Fail()
 	}
 
@@ -139,7 +139,7 @@ func TestCancelOrder(t *testing.T) {
 		t.Fatal()
 	}
 
-	t.Log("生成挂单：orderId=", ordId)
+	t.Log("new order: orderId=", ordId)
 
 	param := map[string]interface{}{}
 	param["instId"] = "BTC-USDT"
@@ -148,9 +148,9 @@ func TestCancelOrder(t *testing.T) {
 	res, _, _ := r.CancelOrder("1", param)
 	if res {
 		usedTime := time.Since(start)
-		fmt.Println("撤单成功！", usedTime.String())
+		log.Println("cancel order success", usedTime.String())
 	} else {
-		t.Fatal("撤单失败！")
+		t.Fatal("cancel order failed")
 	}
 }
 
@@ -166,7 +166,7 @@ func TestAmendlOrder(t *testing.T) {
 		t.Fatal()
 	}
 
-	t.Log("生成挂单：orderId=", ordId)
+	t.Log("new order: orderId=", ordId)
 
 	param := map[string]interface{}{}
 	param["instId"] = "BTC-USDT"
@@ -179,8 +179,8 @@ func TestAmendlOrder(t *testing.T) {
 	res, _, _ := r.AmendOrder("1", param)
 	if res {
 		usedTime := time.Since(start)
-		fmt.Println("修改订单成功！", usedTime.String())
+		log.Println("amend order success", usedTime.String())
 	} else {
-		t.Fatal("修改订单失败！")
+		t.Fatal("amend order failed")
 	}
 }

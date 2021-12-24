@@ -2,7 +2,6 @@ package ws
 
 import (
 	"encoding/json"
-	"fmt"
 	. "github.com/superpdm/OKEX_V5SDK_GO/ws/wImpl"
 	"log"
 	"strings"
@@ -40,10 +39,10 @@ func TestInstruemnts(t *testing.T) {
 	res, _, err = r.PubInstruemnts(OP_SUBSCRIBE, args)
 	if res {
 		usedTime := time.Since(start)
-		fmt.Println("订阅成功！", usedTime.String())
+		log.Println("subscribe success", usedTime.String())
 	} else {
-		fmt.Println("订阅失败！", err)
-		t.Fatal("订阅失败！", err)
+		log.Println("subscribe failed", err)
+		t.Fatal("subscribe failed", err)
 		//return
 	}
 
@@ -54,10 +53,10 @@ func TestInstruemnts(t *testing.T) {
 	res, _, err = r.PubInstruemnts(OP_UNSUBSCRIBE, args)
 	if res {
 		usedTime := time.Since(start)
-		fmt.Println("取消订阅成功！", usedTime.String())
+		log.Println("unsubscribe success", usedTime.String())
 	} else {
-		fmt.Println("取消订阅失败！", err)
-		t.Fatal("取消订阅失败！", err)
+		log.Println("unsubscribe failed", err)
+		t.Fatal("unsubscribe failed", err)
 	}
 
 }
@@ -72,10 +71,10 @@ func TestStatus(t *testing.T) {
 	res, _, err = r.PubStatus(OP_SUBSCRIBE)
 	if res {
 		usedTime := time.Since(start)
-		fmt.Println("订阅成功！", usedTime.String())
+		log.Println("subscribe success", usedTime.String())
 	} else {
-		fmt.Println("订阅失败！", err)
-		t.Fatal("订阅失败！", err)
+		log.Println("subscribe failed", err)
+		t.Fatal("subscribe failed", err)
 		//return
 	}
 
@@ -86,10 +85,10 @@ func TestStatus(t *testing.T) {
 	res, _, err = r.PubStatus(OP_UNSUBSCRIBE)
 	if res {
 		usedTime := time.Since(start)
-		fmt.Println("取消订阅成功！", usedTime.String())
+		log.Println("unsubscribe success", usedTime.String())
 	} else {
-		fmt.Println("取消订阅失败！", err)
-		t.Fatal("取消订阅失败！", err)
+		log.Println("unsubscribe failed", err)
+		t.Fatal("unsubscribe failed", err)
 	}
 
 }
@@ -110,10 +109,10 @@ func TestTickers(t *testing.T) {
 	res, _, err = r.PubTickers(OP_SUBSCRIBE, args)
 	if res {
 		usedTime := time.Since(start)
-		fmt.Println("订阅成功！", usedTime.String())
+		log.Println("subscribe success", usedTime.String())
 	} else {
-		fmt.Println("订阅失败！", err)
-		t.Fatal("订阅失败！", err)
+		log.Println("subscribe failed", err)
+		t.Fatal("subscribe failed", err)
 		//return
 	}
 
@@ -124,10 +123,10 @@ func TestTickers(t *testing.T) {
 	res, _, err = r.PubTickers(OP_UNSUBSCRIBE, args)
 	if res {
 		usedTime := time.Since(start)
-		fmt.Println("取消订阅成功！", usedTime.String())
+		log.Println("unsubscribe success", usedTime.String())
 	} else {
-		fmt.Println("取消订阅失败！", err)
-		t.Fatal("取消订阅失败！", err)
+		log.Println("unsubscribe failed", err)
+		t.Fatal("unsubscribe failed", err)
 	}
 
 }
@@ -148,10 +147,10 @@ func TestOpenInsterest(t *testing.T) {
 	res, _, err = r.PubOpenInsterest(OP_SUBSCRIBE, args)
 	if res {
 		usedTime := time.Since(start)
-		fmt.Println("订阅成功！", usedTime.String())
+		log.Println("subscribe success", usedTime.String())
 	} else {
-		fmt.Println("订阅失败！", err)
-		t.Fatal("订阅失败！", err)
+		log.Println("subscribe failed", err)
+		t.Fatal("subscribe failed", err)
 		//return
 	}
 
@@ -162,10 +161,10 @@ func TestOpenInsterest(t *testing.T) {
 	res, _, err = r.PubOpenInsterest(OP_UNSUBSCRIBE, args)
 	if res {
 		usedTime := time.Since(start)
-		fmt.Println("取消订阅成功！", usedTime.String())
+		log.Println("unsubscribe success", usedTime.String())
 	} else {
-		fmt.Println("取消订阅失败！", err)
-		t.Fatal("取消订阅失败！", err)
+		log.Println("unsubscribe failed", err)
+		t.Fatal("unsubscribe failed", err)
 	}
 
 }
@@ -188,10 +187,10 @@ func TestKLine(t *testing.T) {
 	res, _, err = r.PubKLine(OP_SUBSCRIBE, period, args)
 	if res {
 		usedTime := time.Since(start)
-		fmt.Println("订阅成功！", usedTime.String())
+		log.Println("subscribe success", usedTime.String())
 	} else {
-		fmt.Println("订阅失败！", err)
-		t.Fatal("订阅失败！", err)
+		log.Println("subscribe failed", err)
+		t.Fatal("subscribe failed", err)
 	}
 
 	time.Sleep(60 * time.Second)
@@ -201,10 +200,10 @@ func TestKLine(t *testing.T) {
 	res, _, err = r.PubKLine(OP_UNSUBSCRIBE, period, args)
 	if res {
 		usedTime := time.Since(start)
-		fmt.Println("取消订阅成功！", usedTime.String())
+		log.Println("unsubscribe success", usedTime.String())
 	} else {
-		fmt.Println("取消订阅失败！", err)
-		t.Fatal("取消订阅失败！", err)
+		log.Println("unsubscribe failed", err)
+		t.Fatal("unsubscribe failed", err)
 	}
 
 }
@@ -224,10 +223,10 @@ func TestTrade(t *testing.T) {
 	res, _, err = r.PubTrade(OP_SUBSCRIBE, args)
 	if res {
 		usedTime := time.Since(start)
-		fmt.Println("订阅成功！", usedTime.String())
+		log.Println("subscribe success", usedTime.String())
 	} else {
-		fmt.Println("订阅失败！", err)
-		t.Fatal("订阅失败！", err)
+		log.Println("subscribe failed", err)
+		t.Fatal("subscribe failed", err)
 		//return
 	}
 
@@ -238,10 +237,10 @@ func TestTrade(t *testing.T) {
 	res, _, err = r.PubTrade(OP_UNSUBSCRIBE, args)
 	if res {
 		usedTime := time.Since(start)
-		fmt.Println("取消订阅成功！", usedTime.String())
+		log.Println("unsubscribe success", usedTime.String())
 	} else {
-		fmt.Println("取消订阅失败！", err)
-		t.Fatal("取消订阅失败！", err)
+		log.Println("unsubscribe failed", err)
+		t.Fatal("unsubscribe failed", err)
 	}
 
 }
@@ -262,10 +261,10 @@ func TestEstDePrice(t *testing.T) {
 	res, _, err = r.PubEstDePrice(OP_SUBSCRIBE, args)
 	if res {
 		usedTime := time.Since(start)
-		fmt.Println("订阅成功！", usedTime.String())
+		log.Println("subscribe success", usedTime.String())
 	} else {
-		fmt.Println("订阅失败！", err)
-		t.Fatal("订阅失败！", err)
+		log.Println("subscribe failed", err)
+		t.Fatal("subscribe failed", err)
 		//return
 	}
 
@@ -276,10 +275,10 @@ func TestEstDePrice(t *testing.T) {
 	res, _, err = r.PubEstDePrice(OP_UNSUBSCRIBE, args)
 	if res {
 		usedTime := time.Since(start)
-		fmt.Println("取消订阅成功！", usedTime.String())
+		log.Println("unsubscribe success", usedTime.String())
 	} else {
-		fmt.Println("取消订阅失败！", err)
-		t.Fatal("取消订阅失败！", err)
+		log.Println("unsubscribe failed", err)
+		t.Fatal("unsubscribe failed", err)
 	}
 
 }
@@ -300,10 +299,10 @@ func TestMarkPrice(t *testing.T) {
 	res, _, err = r.PubMarkPrice(OP_SUBSCRIBE, args)
 	if res {
 		usedTime := time.Since(start)
-		fmt.Println("订阅成功！", usedTime.String())
+		log.Println("subscribe success", usedTime.String())
 	} else {
-		fmt.Println("订阅失败！", err)
-		t.Fatal("订阅失败！", err)
+		log.Println("subscribe failed", err)
+		t.Fatal("subscribe failed", err)
 		//return
 	}
 
@@ -314,10 +313,10 @@ func TestMarkPrice(t *testing.T) {
 	res, _, err = r.PubMarkPrice(OP_UNSUBSCRIBE, args)
 	if res {
 		usedTime := time.Since(start)
-		fmt.Println("取消订阅成功！", usedTime.String())
+		log.Println("unsubscribe success", usedTime.String())
 	} else {
-		fmt.Println("取消订阅失败！", err)
-		t.Fatal("取消订阅失败！", err)
+		log.Println("unsubscribe failed", err)
+		t.Fatal("unsubscribe failed", err)
 	}
 
 }
@@ -339,10 +338,10 @@ func TestMarkPriceCandle(t *testing.T) {
 	res, _, err = r.PubMarkPriceCandle(OP_SUBSCRIBE, period, args)
 	if res {
 		usedTime := time.Since(start)
-		fmt.Println("订阅成功！", usedTime.String())
+		log.Println("subscribe success", usedTime.String())
 	} else {
-		fmt.Println("订阅失败！", err)
-		t.Fatal("订阅失败！", err)
+		log.Println("subscribe failed", err)
+		t.Fatal("subscribe failed", err)
 		//return
 	}
 
@@ -353,10 +352,10 @@ func TestMarkPriceCandle(t *testing.T) {
 	res, _, err = r.PubMarkPriceCandle(OP_UNSUBSCRIBE, period, args)
 	if res {
 		usedTime := time.Since(start)
-		fmt.Println("取消订阅成功！", usedTime.String())
+		log.Println("unsubscribe success", usedTime.String())
 	} else {
-		fmt.Println("取消订阅失败！", err)
-		t.Fatal("取消订阅失败！", err)
+		log.Println("unsubscribe failed", err)
+		t.Fatal("unsubscribe failed", err)
 	}
 
 }
@@ -376,10 +375,10 @@ func TestLimitPrice(t *testing.T) {
 	res, _, err = r.PubLimitPrice(OP_SUBSCRIBE, args)
 	if res {
 		usedTime := time.Since(start)
-		fmt.Println("订阅成功！", usedTime.String())
+		log.Println("subscribe success", usedTime.String())
 	} else {
-		fmt.Println("订阅失败！", err)
-		t.Fatal("订阅失败！", err)
+		log.Println("subscribe failed", err)
+		t.Fatal("subscribe failed", err)
 		//return
 	}
 
@@ -390,10 +389,10 @@ func TestLimitPrice(t *testing.T) {
 	res, _, err = r.PubLimitPrice(OP_UNSUBSCRIBE, args)
 	if res {
 		usedTime := time.Since(start)
-		fmt.Println("取消订阅成功！", usedTime.String())
+		log.Println("unsubscribe success", usedTime.String())
 	} else {
-		fmt.Println("取消订阅失败！", err)
-		t.Fatal("取消订阅失败！", err)
+		log.Println("unsubscribe failed", err)
+		t.Fatal("unsubscribe failed", err)
 	}
 
 }
@@ -409,7 +408,7 @@ func TestOrderBooks(t *testing.T) {
 	*/
 	// err = r.EnableAutoDepthMgr(false)
 	// if err != nil {
-	// 	fmt.Println("关闭自动校验失败！")
+	// 	log.Println("关闭自动校验失败！")
 	// }
 
 	end := make(chan struct{})
@@ -419,21 +418,21 @@ func TestOrderBooks(t *testing.T) {
 
 		// 检测深度数据是否正常
 		key, _ := json.Marshal(data.Arg)
-		fmt.Println("个数：", len(data.Data[0].Asks))
+		log.Println("number: ", len(data.Data[0].Asks))
 		checksum := data.Data[0].Checksum
-		fmt.Println("[自定义方法] ", string(key), ", checksum = ", checksum)
+		log.Println("[CustomMethod] ", string(key), ", checksum = ", checksum)
 
 		for _, ask := range data.Data[0].Asks {
 
 			arr := strings.Split(ask[0], ".")
-			//fmt.Println(arr)
+			//log.Println(arr)
 			if len(arr) > 1 && len(arr[1]) > 2 {
-				fmt.Println("ask数据异常,", checksum, "ask:", ask)
+				log.Println("ask data abnormal,", checksum, "ask:", ask)
 				t.Fatal()
 				end <- struct{}{}
 				return nil
 			} else {
-				fmt.Println("bid数据正常,", checksum, "ask:", ask)
+				log.Println("bid data abnormal,", checksum, "ask:", ask)
 			}
 
 		}
@@ -441,14 +440,14 @@ func TestOrderBooks(t *testing.T) {
 		for _, bid := range data.Data[0].Bids {
 
 			arr := strings.Split(bid[0], ".")
-			//fmt.Println(arr)
+			//log.Println(arr)
 			if len(arr) > 1 && len(arr[1]) > 2 {
-				fmt.Println("bid数据异常,", checksum, "bid:", bid)
+				log.Println("bid data abnormal,", checksum, "bid:", bid)
 				t.Fatal()
 				end <- struct{}{}
 				return nil
 			} else {
-				fmt.Println("ask数据正常,", checksum, "bid:", bid)
+				log.Println("ask data abnormal,", checksum, "bid:", bid)
 			}
 
 		}
@@ -459,13 +458,13 @@ func TestOrderBooks(t *testing.T) {
 		// 	t.Fatal("深度数据不存在！")
 		// }
 		// // 展示ask/bid 前5档数据
-		// fmt.Println(" Ask 5 档数据 >> ")
+		// log.Println(" Ask 5 档数据 >> ")
 		// for _, v := range snapshot.Asks[:5] {
-		// 	fmt.Println(" price:", v[0], " amount:", v[1])
+		// 	log.Println(" price:", v[0], " amount:", v[1])
 		// }
-		// fmt.Println(" Bid 5 档数据 >> ")
+		// log.Println(" Bid 5 档数据 >> ")
 		// for _, v := range snapshot.Bids[:5] {
-		// 	fmt.Println(" price:", v[0], " amount:", v[1])
+		// 	log.Println(" price:", v[0], " amount:", v[1])
 		// }
 		return nil
 	})
@@ -484,10 +483,10 @@ func TestOrderBooks(t *testing.T) {
 		res, _, err = r.PubOrderBooks(OP_SUBSCRIBE, channel, args)
 		if res {
 			usedTime := time.Since(start)
-			fmt.Println("订阅成功！", usedTime.String())
+			log.Println("subscribe success", usedTime.String())
 		} else {
-			fmt.Println("订阅失败！", err)
-			t.Fatal("订阅失败！", err)
+			log.Println("subscribe failed", err)
+			t.Fatal("subscribe failed", err)
 		}
 	}
 
@@ -506,10 +505,10 @@ func TestOrderBooks(t *testing.T) {
 		res, _, err = r.PubOrderBooks(OP_UNSUBSCRIBE, channel, args)
 		if res {
 			usedTime := time.Since(start)
-			fmt.Println("取消订阅成功！", usedTime.String())
+			log.Println("unsubscribe success", usedTime.String())
 		} else {
-			fmt.Println("取消订阅失败！", err)
-			t.Fatal("取消订阅失败！", err)
+			log.Println("unsubscribe failed", err)
+			t.Fatal("unsubscribe failed", err)
 		}
 	}
 
@@ -530,10 +529,10 @@ func TestOptionSummary(t *testing.T) {
 	res, _, err = r.PubOptionSummary(OP_SUBSCRIBE, args)
 	if res {
 		usedTime := time.Since(start)
-		fmt.Println("订阅成功！", usedTime.String())
+		log.Println("subscribe success", usedTime.String())
 	} else {
-		fmt.Println("订阅失败！", err)
-		t.Fatal("订阅失败！", err)
+		log.Println("subscribe failed", err)
+		t.Fatal("subscribe failed", err)
 		//return
 	}
 
@@ -544,10 +543,10 @@ func TestOptionSummary(t *testing.T) {
 	res, _, err = r.PubOptionSummary(OP_UNSUBSCRIBE, args)
 	if res {
 		usedTime := time.Since(start)
-		fmt.Println("取消订阅成功！", usedTime.String())
+		log.Println("unsubscribe success", usedTime.String())
 	} else {
-		fmt.Println("取消订阅失败！", err)
-		t.Fatal("取消订阅失败！", err)
+		log.Println("unsubscribe failed", err)
+		t.Fatal("unsubscribe failed", err)
 	}
 
 }
@@ -567,10 +566,10 @@ func TestFundRate(t *testing.T) {
 	res, _, err = r.PubFundRate(OP_SUBSCRIBE, args)
 	if res {
 		usedTime := time.Since(start)
-		fmt.Println("订阅成功！", usedTime.String())
+		log.Println("subscribe success", usedTime.String())
 	} else {
-		fmt.Println("订阅失败！", err)
-		t.Fatal("订阅失败！", err)
+		log.Println("subscribe failed", err)
+		t.Fatal("subscribe failed", err)
 		//return
 	}
 
@@ -581,10 +580,10 @@ func TestFundRate(t *testing.T) {
 	res, _, err = r.PubFundRate(OP_UNSUBSCRIBE, args)
 	if res {
 		usedTime := time.Since(start)
-		fmt.Println("取消订阅成功！", usedTime.String())
+		log.Println("unsubscribe success", usedTime.String())
 	} else {
-		fmt.Println("取消订阅失败！", err)
-		t.Fatal("取消订阅失败！", err)
+		log.Println("unsubscribe failed", err)
+		t.Fatal("unsubscribe failed", err)
 	}
 
 }
@@ -606,10 +605,10 @@ func TestKLineIndex(t *testing.T) {
 	res, _, err = r.PubKLineIndex(OP_SUBSCRIBE, period, args)
 	if res {
 		usedTime := time.Since(start)
-		fmt.Println("订阅成功！", usedTime.String())
+		log.Println("subscribe success", usedTime.String())
 	} else {
-		fmt.Println("订阅失败！", err)
-		t.Fatal("订阅失败！", err)
+		log.Println("subscribe failed", err)
+		t.Fatal("subscribe failed", err)
 		//return
 	}
 
@@ -620,10 +619,10 @@ func TestKLineIndex(t *testing.T) {
 	res, _, err = r.PubKLineIndex(OP_UNSUBSCRIBE, period, args)
 	if res {
 		usedTime := time.Since(start)
-		fmt.Println("取消订阅成功！", usedTime.String())
+		log.Println("unsubscribe success", usedTime.String())
 	} else {
-		fmt.Println("取消订阅失败！", err)
-		t.Fatal("取消订阅失败！", err)
+		log.Println("unsubscribe failed", err)
+		t.Fatal("unsubscribe failed", err)
 	}
 
 }
@@ -642,13 +641,13 @@ func TestIndexMarket(t *testing.T) {
 	start := time.Now()
 	res, _, err = r.PubIndexTickers(OP_SUBSCRIBE, args)
 	if err != nil {
-		fmt.Println("订阅失败！", err)
+		log.Println("subscribe failed", err)
 	}
 	usedTime := time.Since(start)
 	if res {
-		fmt.Println("订阅成功！", usedTime.String())
+		log.Println("subscribe success", usedTime.String())
 	} else {
-		fmt.Println("订阅失败！", usedTime.String())
+		log.Println("subscribe failed", usedTime.String())
 		//return
 	}
 
@@ -659,10 +658,10 @@ func TestIndexMarket(t *testing.T) {
 	res, _, err = r.PubIndexTickers(OP_UNSUBSCRIBE, args)
 	if res {
 		usedTime := time.Since(start)
-		fmt.Println("取消订阅成功！", usedTime.String())
+		log.Println("unsubscribe success", usedTime.String())
 	} else {
-		fmt.Println("取消订阅失败！", err)
-		t.Fatal("取消订阅失败！", err)
+		log.Println("unsubscribe failed", err)
+		t.Fatal("unsubscribe failed", err)
 	}
 
 }

@@ -1,6 +1,6 @@
 package ws
 
-import "fmt"
+import "log"
 
 type ReqFunc func(...interface{}) (res bool, msg *Msg, err error)
 type Decorator func(ReqFunc) ReqFunc
@@ -14,6 +14,6 @@ func handler(h ReqFunc, decors ...Decorator) ReqFunc {
 }
 
 func preprocess() (res bool, msg *Msg, err error) {
-	fmt.Println("preprocess")
+	log.Println("preprocess")
 	return
 }

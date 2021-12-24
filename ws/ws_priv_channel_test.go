@@ -1,7 +1,6 @@
 package ws
 
 import (
-	"fmt"
 	"log"
 	"testing"
 	"time"
@@ -53,11 +52,11 @@ func prework_pri(t int) *WsClient {
 	res, _, err = r.Login(apikey, secretKey, passphrase)
 	if res {
 		//usedTime := time.Since(start)
-		//fmt.Println("登录成功！",usedTime.String())
+		//log.Println("login success",usedTime.String())
 	} else {
-		log.Fatal("登录失败！", err)
+		log.Fatal("login failed", err)
 	}
-	fmt.Println(apikey, secretKey, passphrase)
+	log.Println(apikey, secretKey, passphrase)
 	return r
 }
 
@@ -76,10 +75,10 @@ func TestAccout(t *testing.T) {
 	res, _, err = r.PrivAccout(OP_SUBSCRIBE, args)
 	if res {
 		usedTime := time.Since(start)
-		fmt.Println("订阅所有成功！", usedTime.String())
+		log.Println("subscribe all success", usedTime.String())
 	} else {
-		fmt.Println("订阅所有成功！", err)
-		t.Fatal("订阅所有成功！", err)
+		log.Println("subscribe all failed", err)
+		t.Fatal("subscribe all failed", err)
 	}
 
 	time.Sleep(100 * time.Second)
@@ -87,10 +86,10 @@ func TestAccout(t *testing.T) {
 	res, _, err = r.PrivAccout(OP_UNSUBSCRIBE, args)
 	if res {
 		usedTime := time.Since(start)
-		fmt.Println("取消订阅所有成功！", usedTime.String())
+		log.Println("unsubscribe all success", usedTime.String())
 	} else {
-		fmt.Println("取消订阅所有失败！", err)
-		t.Fatal("取消订阅所有失败！", err)
+		log.Println("unsubscribe all failed", err)
+		t.Fatal("unsubscribe all failed", err)
 	}
 
 }
@@ -112,10 +111,10 @@ func TestPositon(t *testing.T) {
 	res, _, err = r.PrivPostion(OP_SUBSCRIBE, args)
 	if res {
 		usedTime := time.Since(start)
-		fmt.Println("订阅成功！", usedTime.String())
+		log.Println("subscribe success", usedTime.String())
 	} else {
-		fmt.Println("订阅失败！", err)
-		t.Fatal("订阅失败！", err)
+		log.Println("subscribe failed", err)
+		t.Fatal("subscribe failed", err)
 		//return
 	}
 
@@ -126,11 +125,11 @@ func TestPositon(t *testing.T) {
 	res, _, err = r.PrivPostion(OP_UNSUBSCRIBE, args)
 	if res {
 		usedTime := time.Since(start)
-		fmt.Println("取消订阅成功！", usedTime.String())
+		log.Println("unsubscribe success", usedTime.String())
 
 	} else {
-		fmt.Println("取消订阅失败！", err)
-		t.Fatal("取消订阅失败！", err)
+		log.Println("unsubscribe failed", err)
+		t.Fatal("unsubscribe failed", err)
 	}
 
 }
@@ -152,10 +151,10 @@ func TestBookOrder(t *testing.T) {
 	res, _, err = r.PrivBookOrder(OP_SUBSCRIBE, args)
 	if res {
 		usedTime := time.Since(start)
-		fmt.Println("订阅成功！", usedTime.String())
+		log.Println("subscribe success", usedTime.String())
 	} else {
-		fmt.Println("订阅失败！", err)
-		t.Fatal("订阅失败！", err)
+		log.Println("subscribe failed", err)
+		t.Fatal("subscribe failed", err)
 		//return
 	}
 
@@ -166,10 +165,10 @@ func TestBookOrder(t *testing.T) {
 	res, _, err = r.PrivBookOrder(OP_UNSUBSCRIBE, args)
 	if res {
 		usedTime := time.Since(start)
-		fmt.Println("取消订阅成功！", usedTime.String())
+		log.Println("unsubscribe success", usedTime.String())
 	} else {
-		fmt.Println("取消订阅失败！", err)
-		t.Fatal("取消订阅失败！", err)
+		log.Println("unsubscribe failed", err)
+		t.Fatal("unsubscribe failed", err)
 	}
 
 }
@@ -189,10 +188,10 @@ func TestAlgoOrder(t *testing.T) {
 	res, _, err = r.PrivBookAlgoOrder(OP_SUBSCRIBE, args)
 	if res {
 		usedTime := time.Since(start)
-		fmt.Println("订阅成功！", usedTime.String())
+		log.Println("subscribe success", usedTime.String())
 	} else {
-		fmt.Println("订阅失败！", err)
-		t.Fatal("订阅失败！", err)
+		log.Println("subscribe failed", err)
+		t.Fatal("subscribe failed", err)
 		//return
 	}
 
@@ -203,10 +202,10 @@ func TestAlgoOrder(t *testing.T) {
 	res, _, err = r.PrivBookAlgoOrder(OP_UNSUBSCRIBE, args)
 	if res {
 		usedTime := time.Since(start)
-		fmt.Println("取消订阅成功！", usedTime.String())
+		log.Println("unsubscribe success", usedTime.String())
 	} else {
-		fmt.Println("取消订阅失败！", err)
-		t.Fatal("取消订阅失败！", err)
+		log.Println("unsubscribe failed", err)
+		t.Fatal("unsubscribe failed", err)
 	}
 
 }
@@ -225,10 +224,10 @@ func TestPrivBalAndPos(t *testing.T) {
 	res, _, err = r.PrivBalAndPos(OP_SUBSCRIBE, args)
 	if res {
 		usedTime := time.Since(start)
-		fmt.Println("订阅成功！", usedTime.String())
+		log.Println("subscribe success", usedTime.String())
 	} else {
-		fmt.Println("订阅失败！", err)
-		t.Fatal("订阅失败！", err)
+		log.Println("subscribe failed", err)
+		t.Fatal("subscribe failed", err)
 		//return
 	}
 
@@ -239,10 +238,10 @@ func TestPrivBalAndPos(t *testing.T) {
 	res, _, err = r.PrivBalAndPos(OP_UNSUBSCRIBE, args)
 	if res {
 		usedTime := time.Since(start)
-		fmt.Println("取消订阅成功！", usedTime.String())
+		log.Println("unsubscribe success", usedTime.String())
 	} else {
-		fmt.Println("取消订阅失败！", err)
-		t.Fatal("取消订阅失败！", err)
+		log.Println("unsubscribe failed", err)
+		t.Fatal("unsubscribe failed", err)
 	}
 
 }

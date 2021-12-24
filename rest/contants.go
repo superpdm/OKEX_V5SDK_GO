@@ -27,9 +27,6 @@ const (
 	//zh_TW || zh_HK
 	TRADITIONAL_CHINESE = "zh_HK"
 
-	GET = "GET"
+	GET  = "GET"
 	POST = "POST"
 )
-
-
-	

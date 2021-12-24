@@ -2,7 +2,7 @@ package rest
 
 import (
 	"context"
-	"fmt"
+	"log"
 	"testing"
 )
 
@@ -16,18 +16,18 @@ func TestRESTAPIGet(t *testing.T) {
 	rest.SetUserId("xxxxx")
 	response, err := rest.Run(context.Background())
 	if err != nil {
-		fmt.Println(err)
+		log.Println(err)
 		return
 	}
 
-	fmt.Println("Response:")
-	fmt.Println("\thttp code: ", response.Code)
-	fmt.Println("\t总耗时: ", response.TotalUsedTime)
-	fmt.Println("\t请求耗时: ", response.ReqUsedTime)
-	fmt.Println("\t返回消息: ", response.Body)
-	fmt.Println("\terrCode: ", response.V5Response.Code)
-	fmt.Println("\terrMsg: ", response.V5Response.Msg)
-	fmt.Println("\tdata: ", response.V5Response.Data)
+	log.Println("Response:")
+	log.Println("\thttp code: ", response.Code)
+	log.Println("\ttotal time: ", response.TotalUsedTime)
+	log.Println("\trequest time: ", response.ReqUsedTime)
+	log.Println("\tresponse: ", response.Body)
+	log.Println("\terrCode: ", response.V5Response.Code)
+	log.Println("\terrMsg: ", response.V5Response.Msg)
+	log.Println("\tdata: ", response.V5Response.Data)
 
 	// 请求的另一种方式
 	apikey := APIKeyInfo{
@@ -42,14 +42,14 @@ func TestRESTAPIGet(t *testing.T) {
 		return
 	}
 
-	fmt.Println("Response:")
-	fmt.Println("\thttp code: ", rsp.Code)
-	fmt.Println("\t总耗时: ", rsp.TotalUsedTime)
-	fmt.Println("\t请求耗时: ", rsp.ReqUsedTime)
-	fmt.Println("\t返回消息: ", rsp.Body)
-	fmt.Println("\terrCode: ", rsp.V5Response.Code)
-	fmt.Println("\terrMsg: ", rsp.V5Response.Msg)
-	fmt.Println("\tdata: ", rsp.V5Response.Data)
+	log.Println("Response:")
+	log.Println("\thttp code: ", rsp.Code)
+	log.Println("\ttotal time: ", rsp.TotalUsedTime)
+	log.Println("\trequest time: ", rsp.ReqUsedTime)
+	log.Println("\tresponse: ", rsp.Body)
+	log.Println("\terrCode: ", rsp.V5Response.Code)
+	log.Println("\terrMsg: ", rsp.V5Response.Msg)
+	log.Println("\tdata: ", rsp.V5Response.Data)
 }
 
 /*
@@ -63,18 +63,18 @@ func TestRESTAPIPost(t *testing.T) {
 	rest.SetSimulate(true).SetAPIKey("xxxx", "xxxx", "xxxx")
 	response, err := rest.Run(context.Background())
 	if err != nil {
-		fmt.Println(err)
+		log.Println(err)
 		return
 	}
 
-	fmt.Println("Response:")
-	fmt.Println("\thttp code: ", response.Code)
-	fmt.Println("\t总耗时: ", response.TotalUsedTime)
-	fmt.Println("\t请求耗时: ", response.ReqUsedTime)
-	fmt.Println("\t返回消息: ", response.Body)
-	fmt.Println("\terrCode: ", response.V5Response.Code)
-	fmt.Println("\terrMsg: ", response.V5Response.Msg)
-	fmt.Println("\tdata: ", response.V5Response.Data)
+	log.Println("Response:")
+	log.Println("\thttp code: ", response.Code)
+	log.Println("\ttotal time: ", response.TotalUsedTime)
+	log.Println("\trequest time: ", response.ReqUsedTime)
+	log.Println("\tresponse: ", response.Body)
+	log.Println("\terrCode: ", response.V5Response.Code)
+	log.Println("\terrMsg: ", response.V5Response.Msg)
+	log.Println("\tdata: ", response.V5Response.Data)
 
 	// 请求的另一种方式
 	apikey := APIKeyInfo{
@@ -89,12 +89,12 @@ func TestRESTAPIPost(t *testing.T) {
 		return
 	}
 
-	fmt.Println("Response:")
-	fmt.Println("\thttp code: ", rsp.Code)
-	fmt.Println("\t总耗时: ", rsp.TotalUsedTime)
-	fmt.Println("\t请求耗时: ", rsp.ReqUsedTime)
-	fmt.Println("\t返回消息: ", rsp.Body)
-	fmt.Println("\terrCode: ", rsp.V5Response.Code)
-	fmt.Println("\terrMsg: ", rsp.V5Response.Msg)
-	fmt.Println("\tdata: ", rsp.V5Response.Data)
+	log.Println("Response:")
+	log.Println("\thttp code: ", rsp.Code)
+	log.Println("\ttotal time: ", rsp.TotalUsedTime)
+	log.Println("\trequest time: ", rsp.ReqUsedTime)
+	log.Println("\tresponse: ", rsp.Body)
+	log.Println("\terrCode: ", rsp.V5Response.Code)
+	log.Println("\terrMsg: ", rsp.V5Response.Msg)
+	log.Println("\tdata: ", rsp.V5Response.Data)
 }

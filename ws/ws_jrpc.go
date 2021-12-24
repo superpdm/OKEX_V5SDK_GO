@@ -41,7 +41,7 @@ func (a *WsClient) jrpcReq(evtId Event, op string, id string, params []map[strin
 	msg, err := a.process(ctx, evtId, req)
 	if err != nil {
 		res = false
-		log.Println("处理请求失败!", req, err)
+		log.Println("process request failed,", req, err)
 		return
 	}
 	detail.Data = msg

@@ -2,7 +2,6 @@ package main
 
 import (
 	"context"
-	"fmt"
 	. "github.com/superpdm/OKEX_V5SDK_GO/rest"
 	. "github.com/superpdm/OKEX_V5SDK_GO/ws"
 	"log"
@@ -28,14 +27,14 @@ func REST() {
 		return
 	}
 
-	fmt.Println("Response:")
-	fmt.Println("\thttp code: ", rsp.Code)
-	fmt.Println("\t总耗时: ", rsp.TotalUsedTime)
-	fmt.Println("\t请求耗时: ", rsp.ReqUsedTime)
-	fmt.Println("\t返回消息: ", rsp.Body)
-	fmt.Println("\terrCode: ", rsp.V5Response.Code)
-	fmt.Println("\terrMsg: ", rsp.V5Response.Msg)
-	fmt.Println("\tdata: ", rsp.V5Response.Data)
+	log.Println("Response:")
+	log.Println("\thttp code: ", rsp.Code)
+	log.Println("\ttotal time: ", rsp.TotalUsedTime)
+	log.Println("\trequest time: ", rsp.ReqUsedTime)
+	log.Println("\tresponse: ", rsp.Body)
+	log.Println("\terrCode: ", rsp.V5Response.Code)
+	log.Println("\terrMsg: ", rsp.V5Response.Msg)
+	log.Println("\tdata: ", rsp.V5Response.Data)
 
 }
 
@@ -67,9 +66,9 @@ func wsPriv() {
 
 	res, _, err = r.Login(apikey, secretKey, passphrase)
 	if res {
-		fmt.Println("登录成功！")
+		log.Println("login success")
 	} else {
-		fmt.Println("登录失败！", err)
+		log.Println("login failed", err)
 		return
 	}
 
@@ -83,9 +82,9 @@ func wsPriv() {
 	res, _, err = r.PrivAccout(OP_SUBSCRIBE, args)
 	if res {
 		usedTime := time.Since(start)
-		fmt.Println("订阅成功！耗时:", usedTime.String())
+		log.Println("subscribe success, cost: ", usedTime.String())
 	} else {
-		fmt.Println("订阅失败！", err)
+		log.Println("subscribe failed, ", err)
 	}
 
 	time.Sleep(100 * time.Second)
@@ -93,9 +92,9 @@ func wsPriv() {
 	res, _, err = r.PrivAccout(OP_UNSUBSCRIBE, args)
 	if res {
 		usedTime := time.Since(start)
-		fmt.Println("取消订阅成功！", usedTime.String())
+		log.Println("unsubscribe success, ", usedTime.String())
 	} else {
-		fmt.Println("取消订阅失败！", err)
+		log.Println("unsubscribe failed, ", err)
 	}
 
 }
@@ -130,9 +129,9 @@ func wsPub() {
 	res, _, err := r.PubInstruemnts(OP_SUBSCRIBE, args)
 	if res {
 		usedTime := time.Since(start)
-		fmt.Println("订阅成功！", usedTime.String())
+		log.Println("subscribe success", usedTime.String())
 	} else {
-		fmt.Println("订阅失败！", err)
+		log.Println("subscribe failed", err)
 	}
 
 	time.Sleep(30 * time.Second)
@@ -141,9 +140,9 @@ func wsPub() {
 	res, _, err = r.PubInstruemnts(OP_UNSUBSCRIBE, args)
 	if res {
 		usedTime := time.Since(start)
-		fmt.Println("取消订阅成功！", usedTime.String())
+		log.Println("unsubscribe success", usedTime.String())
 	} else {
-		fmt.Println("取消订阅失败！", err)
+		log.Println("unsubscribe failed", err)
 	}
 }
 
@@ -178,9 +177,9 @@ func wsJrpc() {
 
 	res, _, err = r.Login(apikey, secretKey, passphrase)
 	if res {
-		fmt.Println("登录成功！")
+		log.Println("login success")
 	} else {
-		fmt.Println("登录失败！", err)
+		log.Println("login failed", err)
 		return
 	}
 
@@ -196,10 +195,10 @@ func wsJrpc() {
 	res, _, err = r.PlaceOrder(req_id, param)
 	if res {
 		usedTime := time.Since(start)
-		fmt.Println("下单成功！", usedTime.String())
+		log.Println("place order success", usedTime.String())
 	} else {
 		usedTime := time.Since(start)
-		fmt.Println("下单失败！", usedTime.String(), err)
+		log.Println("place order failed", usedTime.String(), err)
 	}
 }
 

@@ -8,6 +8,7 @@ import (
 	"fmt"
 	. "github.com/superpdm/OKEX_V5SDK_GO/utils"
 	"io/ioutil"
+	"log"
 	"net/http"
 	"strings"
 	"time"
@@ -105,7 +106,7 @@ func (this *RESTAPI) SetAPIKey(apiKey, secKey, passPhrase string) *RESTAPI {
 
 func (this *RESTAPI) SetUserId(userId string) *RESTAPI {
 	if this.ApiKeyInfo == nil {
-		fmt.Println("ApiKey为空")
+		log.Println("ApiKey is null")
 		return this
 	}
 
@@ -150,7 +151,7 @@ func (this *RESTAPI) Post(ctx context.Context, uri string, param *map[string]int
 func (this *RESTAPI) Run(ctx context.Context) (res *RESTAPIResult, err error) {
 
 	if this.ApiKeyInfo == nil {
-		err = errors.New("APIKey不可为空")
+		err = errors.New("APIKey must not be null")
 		return
 	}
 
@@ -200,7 +201,7 @@ func (this *RESTAPI) Run(ctx context.Context) (res *RESTAPIResult, err error) {
 	this.PrintRequest(req, body, preHash)
 	resp, err := client.Do(req)
 	if err != nil {
-		fmt.Println("请求失败！", err)
+		log.Println("request failed ", err)
 		return
 	}
 	defer resp.Body.Close()
@@ -209,7 +210,7 @@ func (this *RESTAPI) Run(ctx context.Context) (res *RESTAPIResult, err error) {
 
 	resBuff, err := ioutil.ReadAll(resp.Body)
 	if err != nil {
-		fmt.Println("获取请求结果失败！", err)
+		log.Println("read response failed, ", err)
 		return
 	}
 
@@ -220,7 +221,7 @@ func (this *RESTAPI) Run(ctx context.Context) (res *RESTAPIResult, err error) {
 	var v5rsp Okexv5APIResponse
 	err = json.Unmarshal(resBuff, &v5rsp)
 	if err != nil {
-		fmt.Println("解析v5返回失败！", err)
+		log.Println("parse v5 response failed, ", err)
 		return
 	}
 
@@ -310,22 +311,22 @@ func (this *RESTAPI) SetHeaders(request *http.Request, timestamp string, sign st
 */
 func (this *RESTAPI) PrintRequest(request *http.Request, body string, preHash string) {
 	if this.ApiKeyInfo.SecKey != "" {
-		fmt.Println("  Secret-Key: " + this.ApiKeyInfo.SecKey)
+		log.Println("  Secret-Key: " + this.ApiKeyInfo.SecKey)
 	}
-	fmt.Println("  Request(" + IsoTime() + "):")
-	fmt.Println("\tUrl: " + request.URL.String())
-	fmt.Println("\tMethod: " + strings.ToUpper(request.Method))
+	log.Println("  Request(" + IsoTime() + "):")
+	log.Println("\tUrl: " + request.URL.String())
+	log.Println("\tMethod: " + strings.ToUpper(request.Method))
 	if len(request.Header) > 0 {
-		fmt.Println("\tHeaders: ")
+		log.Println("\tHeaders: ")
 		for k, v := range request.Header {
 			if strings.Contains(k, "Ok-") {
 				k = strings.ToUpper(k)
 			}
-			fmt.Println("\t\t" + k + ": " + v[0])
+			log.Println("\t\t" + k + ": " + v[0])
 		}
 	}
-	fmt.Println("\tBody: " + body)
+	log.Println("\tBody: " + body)
 	if preHash != "" {
-		fmt.Println("  PreHash: " + preHash)
+		log.Println("  PreHash: " + preHash)
 	}
 }
